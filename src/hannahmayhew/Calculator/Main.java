@@ -1,5 +1,7 @@
 package hannahmayhew.Calculator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Main {
 
@@ -8,7 +10,7 @@ public class Main {
 
         while (true) {
 
-            int[] numTot = chooseNumbers();
+            List<Integer> numTot = chooseNumbers();
 
             Calculation Calculation = null;
             while (Calculation == null) {
@@ -38,25 +40,25 @@ public class Main {
         }
     }
 
-    private static int[] chooseNumbers() {
-        System.out.println("How many numbers would you like to use?");
+    private static List<Integer> chooseNumbers() {
+        System.out.println("Enter a number");
         Scanner scanner = new Scanner(System.in);
-        int numQuant = scanner.nextInt();
+        List<Integer> numTot = new ArrayList<>();
 
-        int[] numTot = new int[numQuant];
-
-        for (int i = 1; i <= numQuant; i++) {
-            System.out.println("Enter Number " + i + ":");
-            numTot[i - 1] = scanner.nextInt();
+        while (scanner.hasNextInt()) {
+            System.out.println("Enter a number or 'finished':");
+            numTot.add(scanner.nextInt());
         }
+
         return numTot;
     }
 
-    private static int calculate(Calculation calculation, int[] numTot) {
-        int answer = numTot[0];
-        for (int i = 1; i < numTot.length; i++) {
-            answer = calculation.calculate(answer, numTot[i]);
+    private static int calculate(Calculation calculation, List<Integer> numTot) {
+        int answer = numTot.get(0);
+        for (int i = 1; i < numTot.size(); i++) {
+            answer = calculation.calculate(answer, numTot.get(i));
         }
         return answer;
     }
+
 }
